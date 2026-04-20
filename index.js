@@ -38,6 +38,11 @@ server.on("upgrade", (req, socket) => {
 
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
 
+  const url = new URL(req.url, `http://${req.headers.host}`);
+
+  const token = url.searchParams.get("access-token");
+  console.log("Received access token:", token);
+
   console.log("WebSocket upgrade request for path:", pathname);
 
   let pathArray = pathname.split("/").filter(Boolean);
@@ -123,9 +128,11 @@ server.on("upgrade", (req, socket) => {
   console.log("WebSocket handshake done!");
 });
 
-server.listen(3000, () => {
-  console.log("server started on port:: 3000");
-});
+function startWebSocketServer(port) {
+  server.listen(port, () => {
+    console.log("server started on port::", port);
+  });
+}
 
 function encodeWebSocketFrame(message) {
   const payload = Buffer.from(message);
