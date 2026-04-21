@@ -134,6 +134,8 @@ function startWebSocketServer(port) {
   });
 }
 
+startWebSocketServer(4000);
+
 function encodeWebSocketFrame(message) {
   const payload = Buffer.from(message);
   const payloadLength = payload.length;
